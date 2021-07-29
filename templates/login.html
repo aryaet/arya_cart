@@ -1,0 +1,52 @@
+{% load static %}
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+    <title>LOGIN</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/bs.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body style="background-image: url('{% static 'img/mycart1.jpg' %}');" >
+    <div class="container">
+        <div>
+            <a class="btn btn-primary" href="{% url 'ecommerceapp:allProdCat' %}">Home</a>
+        </div>
+        <div class="login">
+            <form action="login" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <h2>Login</h2>
+                    <div class="col-md-12">
+                        <label>Username</label>
+                        <input type="text" class="form-control" name="username" required>
+                        <br>
+                        <label>Password</label>
+                        <input type="password" class="form-control" name="password" required>
+                    </div>
+                </div>
+                {% if messages %}
+                <div class="alert alert-danger">
+                    {% for message in messages %}
+                    <center><h6>{{message}}</h6></center>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="reset" value="Reset" class="btn btn-outline-primary btn-form">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="submit" value="Login" class="btn btn-outline-success btn-form">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

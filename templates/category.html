@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+    {% if category %}
+        {{category.desc |truncatewords:155}}
+    {% else %}
+        welcome to the cart store where you can buy awesome items
+    {% endif %}
+{% endblock %}
+{% block title %}
+    {% if category %}
+        {{category.name}}-Shop cart
+    {% else %}
+        see our collections -shop cart
+    {% endif %}
+{% endblock %}
+{% block content %}
+    {% if category %}
+        <div class="row my_row_class">
+            <div class="mx-auto">
+                <p><a href="{% url 'ecommerceapp:allProdCat' %}">Our product collections</a>{{category.name}}</p>
+            </div>
+        </div>
+    {% endif %}
+    <div class="mx-auto">
+        {% if category %}
+            <img class="my_image" src="{{category.image.url}}" alt="{{category.name}}">
+    </div><br>
+    <div>
+        <h1 class="text-center my_title">{{category.name}}</h1>
+        <p class="text-justify">{{category.desc}}</p>
+    </div>
+    {% else %}
+    <div>
+        <center><img class="my_image my_image_padding" src="{% static 'img/shop.png' %}"  alt=""></center>
+    </div>
+    <br>
+    <div>
+        <h1 class="text-center my_title">Our product collections</h1>
+    </div>
+    {% endif %}
+    <div class="container">
+        <div class="row max-auto">
+            {% for product in products.object_list %}
+            <div class="my_bottom_margin col-9 col-sm-12 col-md-4 col-lg-4">
+                <div class="card text-center" style="width: 18rem;">
+                    <a href="{{product.get_url}}"><img class="card-img-top my_image" src="{{product.image.url}}" alt="{{product.name}}"></a>
+                    <div class="card-body">
+                        <h4>{{product.name}}</h4>
+                        <p>${{product.price}}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="mx-auto">
+            <div class="text-center">
+            {% for pg in products.paginator.page_range %}
+            <a href="?page={{pg}}" class="btn btn-light btn-sm {% if products.number == pg %} activate {% endif %}">{{pg}}</a>
+            {% endfor %}
+            </div>
+        </div>
+        {% if not category %}
+        <div>
+            <p class="text-success my_title">SHEEN- STYLE YOUR CHANGE<br>
+            <p class="text-justify my_prod_text">Catering to the discerning and trendy consumer, Sheen is a power house of fashion and innovation. With a range of clothing from diverse sub brands that combine elegance and freshness, the unparalleled options are fashion forward and on trend. The collections cover a gamut of ready-to-wear western wear and ethnic wear for men, women and kids, in addition to a stunning range of accessories for women and men. Sheen houses a repertoire of lifestyle brands that cater to all consumers across a range of multiple occasions. The family concept store has evolved into a fashion destination with a focus of delivering the latest fashion.<br></p>
+            <p class="text-success my_title">SHEEN- A REPERTOIRE OF BRANDS<br></p>
+            <p class="text-justify my_prod_text">Keeping the consumer’s fashion sensibilities and fashion in mind, Sheen has more than 200 brands on offer. Their reputed in-house brands come with their own noteworthy fan following and offers a wide range of brands for men, women and kids with categories including western wear, ethnic wear, formal wear, party wear, active wear and accessories making it a one stop destination for the entire family.<br></p>
+            <p class="text-success my_title">SHEEN- FASHIONABLE WOMEN'S WEAR<br></p>
+            <p class="text-justify my_prod_text">The Sheen women's wear collection caters to all occasions from work wear to festive wear. The exclusive ethnic wear brands include a mix-and-match range by Rangmanch, fusion wear from Akkriti and occasion wear from Trishaa. For the gym-bunnies, Ajile offers a range of stylish active wear, while Honey offers trendy casual wear. Perfect for elegant evening wear, Annabelle offers a range of dresses, skirts, tops and pants.<br></p>
+            <p class="text-success my_title">SHEEN- SMART MEN'S WEAR<br></p>
+            <p class="text-justify my_prod_text">The Sheen men's wear collection caters to every need of the hour- from office wear to party wear. With edgy casuals from SF Jeans to preppy British sports-inspired clothing from Byford, the casual wear range is perfect for your off duty style. Fitness aficionados can pick trendy styles from active wear brand Ajile.<br></p>
+            <p class="text-success my_title">SHEEN- CUTE KID'S WEAR<br></p>
+            <p class="text-justify my_prod_text">Not forgetting your little ones, Sheen also has an adorable collection that caters to toddlers and tweens alike. Starting from 1 month old toddlers to 12 year olds, the portfolio of brands includes infant wear from Chirpie Pie, ethnic wear from Akkriti, and casual wear from Chalk and Poppers.<br></p>
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}

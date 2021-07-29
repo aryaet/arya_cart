@@ -1,0 +1,68 @@
+{% load static %}
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+    <title>WELCOME</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/bs.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body style="background-image: url('{% static 'img/mycart1.jpg' %}');">
+    <div class="container">
+        <div>
+            <a class="btn btn-primary" href="{% url 'ecommerceapp:allProdCat' %}">Home</a>
+        </div>
+        <div class="login">
+            <form action="register" method="post">
+            {% csrf_token %}
+                <div class="row">
+                    <h2>Register</h2>
+                    <div class="col-md-12">
+                        <label>First Name</label>
+                        <input type="text" class="form-control" name="first_name" required>
+                        <br>
+                        <label>Last Name</label>
+                        <input type="text" class="form-control" name="last_name">
+                        <br>
+                        <label>Username</label>
+                        <input type="text" class="form-control" name="username"required>
+                        <br>
+                        <label>Email</label>
+                        <input type="email" class="form-control" name="email" required>
+                        <br>
+                        <label>Password</label>
+                        <input type="password" class="form-control" name="password1" required>
+                        <br>
+                        <label>Confirm Password</label>
+                        <input type="password" class="form-control" name="password2" required>
+                    </div>
+                </div>
+                {% if messages %}
+                <div class="alert alert-danger">
+                    {% for message in messages %}
+                    <center><h6>{{message}}</h6></center>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="reset" value="Reset" class="btn btn-outline-primary btn-form">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="submit" value="Register" class="btn btn-outline-success btn-form">
+                    </div>
+                </div>
+            </form>
+            <p class="text-center">If you already have an account, <a href="{% url 'accounts:login' %}">login</a> instead.</p>
+        </div>
+    </div>
+</body>
+</html>
+
+
